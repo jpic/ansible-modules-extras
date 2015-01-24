@@ -57,6 +57,10 @@ def replace_line(existing_line, new_line):
     """Replaces lines in /etc/locale.gen"""
     with open("/etc/locale.gen", "r") as f:
         lines = [line.replace(existing_line, new_line) for line in f]
+        
+    if new_line not in lines:
+        lines.append('%s\n' % new_line)
+         
     with open("/etc/locale.gen", "w") as f:
         f.write("".join(lines))
 
